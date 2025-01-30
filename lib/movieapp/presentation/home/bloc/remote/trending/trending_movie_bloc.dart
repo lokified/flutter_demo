@@ -1,6 +1,7 @@
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mentali/movieapp/core/resources/resources.dart';
+import 'package:mentali/movieapp/domain/entities/movie.dart';
 import 'package:mentali/movieapp/presentation/home/bloc/remote/trending/trending_movie_event.dart';
 import 'package:mentali/movieapp/presentation/home/bloc/remote/trending/trending_movie_state.dart';
 
@@ -15,14 +16,19 @@ class TrendingMoviesBloc extends Bloc<TrendingMoviesEvent, TrendingMoviesState> 
   }
 
   void onGetTrendingMovies(GetTrendingMovies event, Emitter<TrendingMoviesState> emit) async {
-    final dataState = await _getTrendingMoviesUseCase();
+    if (event.pageKey == 1) {
+      emit(TrendingMovieLoading());
+    }
+
+    final dataState = await _getTrendingMoviesUseCase(params: event.pageKey);
 
     if(dataState is DataSuccess && dataState.data!.isNotEmpty) {
-      emit(TrendingMovieDone(dataState.data!));
+
+      emit(TrendingMovieDone(dataState.data!, event.pageKey));
     }
 
     if(dataState is DataFailed) {
-      emit(TrendingMovieError(dataState.error!));
+      emit(TrendingMovieError(dataState.error!.message ?? 'Something went wrong!'));
     }
   }
 }

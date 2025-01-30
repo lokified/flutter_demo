@@ -6,7 +6,7 @@ import 'package:mentali/movieapp/domain/entities/movie.dart';
 
 abstract class UpcomingMoviesState extends Equatable {
   final List<Movie>? movies;
-  final DioException? error;
+  final String? error;
 
   const UpcomingMoviesState({this.movies, this.error});
 
@@ -23,5 +23,5 @@ class UpcomingMoviesDone extends UpcomingMoviesState {
 }
 
 class UpcomingMoviesError extends UpcomingMoviesState {
-  const UpcomingMoviesError(DioException error): super(error: error);
+  const UpcomingMoviesError(String error): super(error: error);
 }

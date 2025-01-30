@@ -25,7 +25,7 @@ class MovieItem extends StatelessWidget {
               height: 4,
             ),
             Text(
-              movie.title,
+              movie.title ?? '',
               textAlign: TextAlign.center,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
@@ -39,7 +39,7 @@ class MovieItem extends StatelessWidget {
 
   _buildImage(BuildContext context) {
     return CachedNetworkImage(
-      imageUrl: imageUrl + movie.posterPath,
+      imageUrl: movie.posterPath == null ? placeholderImageUrl : imageUrl + movie.posterPath!,
       imageBuilder: (context, imageProvider) => ClipRRect(
         borderRadius: BorderRadius.circular(12.0),
         child: Container(

@@ -18,9 +18,9 @@ class MovieRepositoryImpl implements MovieRepository {
   MovieRepositoryImpl(this._movieApiService, this._movieDao);
 
   @override
-  Future<DataState<List<MovieModel>>> getTrendingMovies() async {
+  Future<DataState<List<MovieModel>>> getTrendingMovies(int page) async {
     try {
-      final httpResponse = await _movieApiService.getTrendingMovies();
+      final httpResponse = await _movieApiService.getTrendingMovies(page);
 
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data.results!);
@@ -46,10 +46,10 @@ class MovieRepositoryImpl implements MovieRepository {
   }
 
   @override
-  Future<DataState<List<MovieModel>>> getPopularMovies() async {
+  Future<DataState<List<MovieModel>>> getPopularMovies(int page) async {
 
     try {
-      final httpResponse = await _movieApiService.getPopularMovies();
+      final httpResponse = await _movieApiService.getPopularMovies(page);
 
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data.results!);
@@ -78,7 +78,7 @@ class MovieRepositoryImpl implements MovieRepository {
   Future<DataState<List<MovieModel>>> getUpcomingMovies() async {
 
     try {
-      final httpResponse = await _movieApiService.getPopularMovies();
+      final httpResponse = await _movieApiService.getUpcomingMovies();
 
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data.results!);

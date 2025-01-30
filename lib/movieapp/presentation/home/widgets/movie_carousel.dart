@@ -65,7 +65,7 @@ class _MovieCarouselState extends State<MovieCarousel> {
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                state.error!.error.toString(),
+                state.error!,
                 textAlign: TextAlign.center,
               ),
             ),

@@ -1,17 +1,16 @@
-
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:mentali/movieapp/domain/entities/movie.dart';
 
 abstract class PopularMoviesState extends Equatable {
-
+  final int currentPage;
   final List<Movie>? movies;
-  final DioException? error;
+  final String? error;
 
-  const PopularMoviesState({this.movies, this.error});
+  const PopularMoviesState({this.movies, this.error, this.currentPage = 0});
 
   @override
-  List<Object?> get props => [movies, error];
+  List<Object?> get props => [movies, error, currentPage];
 }
 
 class PopularMoviesLoading extends PopularMoviesState {
@@ -19,9 +18,10 @@ class PopularMoviesLoading extends PopularMoviesState {
 }
 
 class PopularMoviesDone extends PopularMoviesState {
-  const PopularMoviesDone(List<Movie> movies) : super(movies: movies);
+  const PopularMoviesDone(List<Movie> movies, int currentPage)
+      : super(movies: movies, currentPage: currentPage);
 }
 
 class PopularMoviesError extends PopularMoviesState {
-  const PopularMoviesError(DioException error): super(error: error);
+  const PopularMoviesError(String error) : super(error: error);
 }

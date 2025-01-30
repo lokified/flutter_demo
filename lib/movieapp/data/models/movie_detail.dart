@@ -2,7 +2,6 @@
 import 'package:floor/floor.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import '../datasources/local/converter/type_converters.dart';
 part 'movie_detail.g.dart';
 
 @Entity(tableName: 'movies')

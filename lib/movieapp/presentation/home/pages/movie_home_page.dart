@@ -1,7 +1,7 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mentali/movieapp/core/enums/category_type.dart';
 import 'package:mentali/movieapp/domain/entities/movie.dart';
 
 import '../bloc/remote/popular/popular_movie_bloc.dart';
@@ -33,9 +33,15 @@ class _MovieHomePageState extends State<MovieHomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               MovieCarousel(),
-              _buildRowText('Popular'),
+              _buildRowText(
+                  'Popular',
+                  () => Navigator.pushNamed(context, 'allScreen',
+                      arguments: CategoryType.POPULAR)),
               _buildPopularMoviesList(),
-              _buildRowText('Trending'),
+              _buildRowText(
+                  'Trending',
+                  () => Navigator.pushNamed(context, 'allScreen',
+                      arguments: CategoryType.TRENDING)),
               _buildTrendingMoviesList(),
             ],
           ),
@@ -44,7 +50,7 @@ class _MovieHomePageState extends State<MovieHomePage> {
     );
   }
 
-  _buildRowText(String title) {
+  _buildRowText(String title, VoidCallback onTap) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6.0),
       child: Row(
@@ -54,7 +60,7 @@ class _MovieHomePageState extends State<MovieHomePage> {
             title,
             style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
           ),
-          TextButton(onPressed: () {}, child: Text('See all'))
+          TextButton(onPressed: onTap, child: Text('See all'))
         ],
       ),
     );
@@ -72,7 +78,7 @@ class _MovieHomePageState extends State<MovieHomePage> {
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                state.error!.error.toString(),
+                state.error!,
                 textAlign: TextAlign.center,
               ),
             ),
@@ -100,7 +106,7 @@ class _MovieHomePageState extends State<MovieHomePage> {
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                state.error!.error.toString(),
+                state.error!,
                 textAlign: TextAlign.center,
               ),
             ),

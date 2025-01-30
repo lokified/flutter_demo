@@ -14,10 +14,14 @@ abstract class MovieApiService {
   Future<HttpResponse<UpComingResult>> getUpcomingMovies();
 
   @GET('/trending/all/day?language=en-US')
-  Future<HttpResponse<MovieResult>> getTrendingMovies();
+  Future<HttpResponse<MovieResult>> getTrendingMovies(
+      @Query("page") int page
+      );
 
-  @GET('/movie/popular?language=en-US&page=1')
-  Future<HttpResponse<MovieResult>> getPopularMovies();
+  @GET('/movie/popular?language=en-US')
+  Future<HttpResponse<MovieResult>> getPopularMovies(
+      @Query("page") int page
+      );
 
   @GET('/movie/{movie_id}?language=en-US')
   Future<HttpResponse<MovieDetail>> getMovieDetails(

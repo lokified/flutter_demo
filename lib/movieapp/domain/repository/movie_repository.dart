@@ -6,8 +6,8 @@ import 'package:mentali/movieapp/domain/entities/movie.dart';
 
 abstract class MovieRepository {
   Future<DataState<List<MovieModel>>> getUpcomingMovies();
-  Future<DataState<List<MovieModel>>> getTrendingMovies();
-  Future<DataState<List<MovieModel>>> getPopularMovies();
+  Future<DataState<List<MovieModel>>> getTrendingMovies(int page);
+  Future<DataState<List<MovieModel>>> getPopularMovies(int page);
   Future<DataState<MovieDetail>> getMovieDetails(int? movieId);
 
   //local

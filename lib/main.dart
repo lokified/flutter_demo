@@ -1,7 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mentali/movieapp/core/enums/category_type.dart';
 import 'package:mentali/movieapp/core/theme/theme.dart';
 import 'package:mentali/movieapp/di/injection_container.dart';
+import 'package:mentali/movieapp/presentation/all_screen/pages/all_screen.dart';
 import 'package:mentali/movieapp/presentation/details/bloc/movie_details_bloc.dart';
 import 'package:mentali/movieapp/presentation/details/bloc/movie_details_event.dart';
 import 'package:mentali/movieapp/presentation/details/pages/movie_details.dart';
@@ -36,7 +39,6 @@ class MyApp extends StatelessWidget {
   }
 
   _initMovieApp(BuildContext context) {
-
     final brightness = View.of(context).platformDispatcher.platformBrightness;
 
     TextTheme textTheme = createTextTheme(context, "Poppins", "Poppins");
@@ -46,13 +48,12 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<TrendingMoviesBloc>(
-            create: (context) => sl()..add(GetTrendingMovies())),
+            create: (context) => sl()..add(GetTrendingMovies(pageKey: 1))),
         BlocProvider<PopularMoviesBloc>(
-            create: (context) => sl()..add(GetPopularMovies())),
+            create: (context) => sl()..add(GetPopularMovies(pageKey: 1))),
         BlocProvider<UpcomingMoviesBloc>(
             create: (context) => sl()..add(GetUpcomingMovies())),
-        BlocProvider<MovieDetailsBloc>(
-            create: (context) => sl()),
+        BlocProvider<MovieDetailsBloc>(create: (context) => sl()),
         BlocProvider<FavoriteMovieBloc>(
             create: (context) => sl()..add(GetFavoriteMovies())),
       ],
@@ -65,7 +66,14 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: (settings) {
           if (settings.name == 'movieDetail') {
             final movieId = settings.arguments as int;
-            return MaterialPageRoute(builder: (context) => MovieDetailsPage(id: movieId));
+            return MaterialPageRoute(
+                builder: (context) => MovieDetailsPage(id: movieId));
+          }
+
+          if (settings.name == 'allScreen') {
+            final categoryType = settings.arguments as CategoryType;
+            return MaterialPageRoute(
+                builder: (context) => AllScreen(categoryType: categoryType));
           }
         },
       ),

@@ -5,5 +5,6 @@ abstract class TrendingMoviesEvent {
 }
 
 class GetTrendingMovies extends TrendingMoviesEvent {
-  const GetTrendingMovies();
+  final int pageKey;
+  const GetTrendingMovies({required this.pageKey});
 }
