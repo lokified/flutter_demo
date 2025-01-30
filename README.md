@@ -96,7 +96,3 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Contact
 
 Email - lsheldon645@gmail.com
-=======
-A Flutter project with diffferent demo apps for practice
-
->>>>>>> 89dc7ea9c31f17fd524cb9b2902cf7aacc2e03ce
